@@ -7,23 +7,47 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
 
-class Address(Base):
-    __tablename__ = 'address'
+class Planets(Base):
+    __tablename__ = 'planets'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    name = Column(String(100), nullable=False )
+    climate = Column(String(100))
+    population = Column(Integer)
+    orbital_period = Column(Integer)
+    rotation_period = Column(Integer)
+    diameter = Column(Integer)
+
+
+
+class Starships(Base):
+    __tablename__ = 'starships'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False )
+    model = Column(String(100))
+    manufacturer = Column(String(100))
+    max_atmosphering_Speed = Column(Integer)
+    cargo_Capacity = Column(Integer)
+    
+
+class Characters(Base):
+    __tablename__ = 'characters'
+        # Here we define columns for the table address.
+        # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False )
+    gender = Column(String(100))
+    skin_color = Column(String(100))
+    eye_color = Column(String(100))
+    Birth_Year = Column(String(100))
+    planets_id = Column(Integer, ForeignKey('planets.id'))
+    planet = relationship(Planets)
+    starships_id = Column(Integer, ForeignKey('starships.id'))
+    starships = relationship(Starships)                  
 
     def to_dict(self):
         return {}
